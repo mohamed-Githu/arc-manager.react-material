@@ -2,6 +2,11 @@ import { makeStyles } from "@material-ui/styles";
 
 export default makeStyles(theme => ({
   header: {
-    padding: "5em 2em 5em 0",
+    paddingTop: "2em",
+    paddingLeft: "5em",
+  },
+  input: {
+    marginLeft: "5em",
+    width: "35em",
   }
 }));
