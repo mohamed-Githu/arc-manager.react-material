@@ -8,5 +8,9 @@ export default makeStyles(theme => ({
   input: {
     marginLeft: "5em",
     width: "35em",
-  }
+  },
+  switchsContainer: {
+    marginLeft: "5em",
+    marginTop: "2em",
+  },
 }));

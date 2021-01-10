@@ -82,6 +82,19 @@ const theme = createMuiTheme({
     }
   },
   overrides: {
+    MuiFormControlLabel: {
+      label: {
+        fontWeight: 700,
+        color: arcBlue,
+      },
+      labelPlacementStart: {
+        marginLeft: 0,
+        marginRight: "5em",
+        "&:last-child": {
+          marginRight: 0,
+        },
+      },
+    },
     MuiButton: {
       text: {
         padding: 0
