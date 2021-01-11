@@ -14,15 +14,22 @@ import AddIcon from "@material-ui/icons/Add";
 import Footer from './ui/footer/footer.component';
 import Header from './ui/header/Header.component';
 import Switch from "./ui/switch-form/switch-form.component";
+import ContentTable from "./ui/content-tabel/content-tabel.component";
 
 import theme from './ui/Theme';
 
+const createRow = (name, data, service, features, complexity, platforms, total) => ([name, data, service, features, complexity, platforms, total]);
+
 const App = () => {
   const [inputValue, setInputValue] = useState("");
+
   const [websiteSwitch, setWebsiteSwitch] = useState(false);
   const [iosSwitch, setIosSwitch] = useState(false);
   const [androidSwitch, setAndroidSwitch] = useState(false);
   const [softwareSwitch, setSoftwareSwitch] = useState(false);
+
+  const [rows, setRows] = useState([createRow("Mohamed Hussein", "4/3/2002", "Website", "N/A", "N/A", "N/A", "$1500"), createRow("Mohamed Hussein", "4/3/2002", "Website", "N/A", "N/A", "N/A", "$1500"), createRow("Custom Person", "4/3/2002", "Android", "E-commerce / Photo / Videos / Transfer Files / Push Notifications", "N/A", "N/A", "$1500"), createRow("Mohamed Hussein", "4/3/2002", "Website", "N/A", "N/A", "N/A", "$1500")]);
+
   const classes = useStyles();
 
   const handleInput = (e) => setInputValue(e.target.value);
@@ -44,7 +51,7 @@ const App = () => {
             className={classes.input}
             InputProps={{ 
               endAdornment: <InputAdornment position="end">
-                <AddIcon color="primary"/>
+                <AddIcon color="primary" style={{ fontSize: 30 }} />
               </InputAdornment>
             }}
           />
@@ -72,6 +79,9 @@ const App = () => {
               onChange={() => setSoftwareSwitch(!softwareSwitch)}
             />
           </FormGroup>
+        </Grid>
+        <Grid item>
+          <ContentTable rows={rows} />
         </Grid>
       </Grid>
       <Footer />

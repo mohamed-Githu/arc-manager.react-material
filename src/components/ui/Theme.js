@@ -82,6 +82,23 @@ const theme = createMuiTheme({
     }
   },
   overrides: {
+    MuiTableCell: {
+      head: {
+        fontSize: "1rem",
+        fontWeight: 700,
+        color: arcBlue,
+        borderColor: arcBlue,
+        borderWidth: 2,
+        textAlign: "center",
+      },
+      body: {
+        color: arcGrey,
+        borderColor: arcBlue,
+        borderWidth: 2,
+        textAlign: "center",
+        maxWidth: "5em",
+      }
+    },
     MuiFormControlLabel: {
       label: {
         fontWeight: 700,
