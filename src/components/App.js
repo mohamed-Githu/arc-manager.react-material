@@ -15,6 +15,7 @@ import Footer from './ui/footer/footer.component';
 import Header from './ui/header/Header.component';
 import Switch from "./ui/switch-form/switch-form.component";
 import ContentTable from "./ui/content-tabel/content-tabel.component";
+import AddModal from "./ui/add-modal/add-modal.component";
 
 import theme from './ui/Theme';
 
@@ -27,6 +28,9 @@ const App = () => {
   const [iosSwitch, setIosSwitch] = useState(false);
   const [androidSwitch, setAndroidSwitch] = useState(false);
   const [softwareSwitch, setSoftwareSwitch] = useState(false);
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const handleModal = () => setModalOpen(!modalOpen);
 
   const [rows, setRows] = useState([createRow("Mohamed Hussein", "4/3/2002", "Website", "N/A", "N/A", "N/A", "$1500"), createRow("Mohamed Hussein", "4/3/2002", "Website", "N/A", "N/A", "N/A", "$1500"), createRow("Custom Person", "4/3/2002", "Android", "E-commerce / Photo / Videos / Transfer Files / Push Notifications", "N/A", "N/A", "$1500"), createRow("Mohamed Hussein", "4/3/2002", "Website", "N/A", "N/A", "N/A", "$1500")]);
 
@@ -50,8 +54,8 @@ const App = () => {
             placeholder="Search project details or create a new entry."
             className={classes.input}
             InputProps={{ 
-              endAdornment: <InputAdornment position="end">
-                <AddIcon color="primary" style={{ fontSize: 30 }} />
+              endAdornment: <InputAdornment position="end" onClick={handleModal}>
+                <AddIcon className={classes.addButton} />
               </InputAdornment>
             }}
           />
@@ -85,6 +89,7 @@ const App = () => {
         </Grid>
       </Grid>
       <Footer />
+      <AddModal open={modalOpen} onClose={handleModal} />
     </ThemeProvider>
   );
 }

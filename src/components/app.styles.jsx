@@ -1,6 +1,6 @@
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles } from "@material-ui/core";
 
-export default makeStyles(theme => ({
+const useStyles = makeStyles(theme => ({
   header: {
     paddingTop: "2em",
     paddingLeft: "5em",
@@ -13,4 +13,11 @@ export default makeStyles(theme => ({
     marginLeft: "5em",
     marginTop: "2em",
   },
+  addButton: {
+    color: theme.palette.primary.main,
+    fontSize: 30,
+    cursor: "pointer",
+  },
 }));
+
+export default useStyles;

@@ -5,7 +5,6 @@ import {
   TableHead,
   TableContainer,
   TableCell,
-  Paper,
   Grid,
 } from "@material-ui/core";
 import FilterListIcon from "@material-ui/icons/FilterList";
