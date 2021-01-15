@@ -134,9 +134,16 @@ const theme = createMuiTheme({
         zIndex: 1,
         color: arcBlue,
         fontSize: "1rem",
+        fontWeight: 400,
       },
     },
     MuiInput: {
+      label: {
+
+      },
+      formControl: {
+        marginTop: 16,
+      },
       underline: {
         "&:before": {
           borderBottom: `2px solid ${arcBlue}`,

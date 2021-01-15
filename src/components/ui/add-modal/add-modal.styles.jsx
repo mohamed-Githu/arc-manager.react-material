@@ -5,10 +5,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "center",
     position: "absolute",
-    width: "50em",
+    width: "60em",
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(1, 2, 3),
+    padding: theme.spacing(1, 3, 3),
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
@@ -28,6 +28,13 @@ const useStyles = makeStyles((theme) => ({
       width: "100%",
       height: "100vh",
     },
+  },
+  service: {
+    fontWeight: 400,
+  },
+  radiosContainer: {
+    flexDirection: "column",
+    marginTop: "5em",
   },
 }));
 

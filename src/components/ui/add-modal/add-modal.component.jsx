@@ -7,6 +7,9 @@ import {
   Typography,
   TextField,
   InputAdornment,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
 } from "@material-ui/core";
 import { KeyboardDatePicker } from "@material-ui/pickers";
 
@@ -17,9 +20,12 @@ const AddModal = (modalProps) => {
   const [input, setInput] = useState({
     name: "",
     total: "",
+    service: "",
+    complexity: "",
+    users: "",
   });
 
-  const { name, total } = input;
+  const { name, total, service, complexity, users } = input;
   const handleChange = (e) =>
     setInput({ ...input, [e.target.id]: e.target.value });
 
@@ -31,7 +37,7 @@ const AddModal = (modalProps) => {
             Add a new project
           </Typography>
         </Grid>
-        <Grid item container justify="space-between" alignItems="flex-end">
+        <Grid item container justify="space-between">
           <Grid item container direction="column" sm>
             <Grid item>
               <TextField
@@ -41,6 +47,41 @@ const AddModal = (modalProps) => {
                 onChange={handleChange}
               />
             </Grid>
+            <Grid item container className={classes.radiosContainer}>
+              <Grid item>
+                <Typography variant="h4">Services</Typography>
+              </Grid>
+              <Grid item>
+                <RadioGroup
+                  aria-label="service"
+                  name="service"
+                  value={service}
+                  onChange={(e) =>
+                    setInput({ ...input, service: e.target.value })
+                  }
+                >
+                  <FormControlLabel
+                    classes={{ label: classes.service }}
+                    value="Website"
+                    label="Website"
+                    control={<Radio />}
+                    color="primary"
+                  />
+                  <FormControlLabel
+                    classes={{ label: classes.service }}
+                    value="Mobile App"
+                    label="Mobile App"
+                    control={<Radio />}
+                  />
+                  <FormControlLabel
+                    classes={{ label: classes.service }}
+                    value="Custom Software"
+                    label="Custom Software"
+                    control={<Radio />}
+                  />
+                </RadioGroup>
+              </Grid>
+            </Grid>
           </Grid>
           <Grid item container direction="column" alignItems="center" sm>
             <Grid item>
@@ -49,6 +90,43 @@ const AddModal = (modalProps) => {
                 value={date}
                 onChange={handleDateChange}
               />
+            </Grid>
+            <Grid item="">
+              <Grid item container className={classes.radiosContainer}>
+                <Grid item>
+                  <Typography variant="h4">Complexity</Typography>
+                </Grid>
+                <Grid item>
+                  <RadioGroup
+                    aria-label="complexity"
+                    name="complexity"
+                    value={complexity}
+                    onChange={(e) =>
+                      setInput({ ...input, complexity: e.target.value })
+                    }
+                  >
+                    <FormControlLabel
+                      classes={{ label: classes.service }}
+                      value="Low"
+                      label="Low"
+                      control={<Radio />}
+                      color="primary"
+                    />
+                    <FormControlLabel
+                      classes={{ label: classes.service }}
+                      value="Medium"
+                      label="Medium"
+                      control={<Radio />}
+                    />
+                    <FormControlLabel
+                      classes={{ label: classes.service }}
+                      value="High"
+                      label="High"
+                      control={<Radio />}
+                    />
+                  </RadioGroup>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
           <Grid item container direction="column" alignItems="flex-end" sm>
@@ -65,6 +143,43 @@ const AddModal = (modalProps) => {
                 value={total}
                 onChange={handleChange}
               />
+            </Grid>
+            <Grid item>
+              <Grid item container className={classes.radiosContainer}>
+                <Grid item>
+                  <Typography variant="h4">Users</Typography>
+                </Grid>
+                <Grid item>
+                  <RadioGroup
+                    aria-label="users"
+                    name="users"
+                    value={users}
+                    onChange={(e) =>
+                      setInput({ ...input, users: e.target.value })
+                    }
+                  >
+                    <FormControlLabel
+                      classes={{ label: classes.service }}
+                      value="0-10"
+                      label="0-10"
+                      control={<Radio />}
+                      color="primary"
+                    />
+                    <FormControlLabel
+                      classes={{ label: classes.service }}
+                      value="10-100"
+                      label="10-100"
+                      control={<Radio />}
+                    />
+                    <FormControlLabel
+                      classes={{ label: classes.service }}
+                      value="100+"
+                      label="100+"
+                      control={<Radio />}
+                    />
+                  </RadioGroup>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
