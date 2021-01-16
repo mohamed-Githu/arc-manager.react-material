@@ -82,6 +82,18 @@ const theme = createMuiTheme({
     }
   },
   overrides: {
+    MuiMenuItem: {
+      root: {
+        fontWeight: 400,
+      },
+    },
+    MuiSvgIcon: {
+      root: {
+        "&.MuiSelect-icon": {
+          fill: arcOrange,
+        },
+      }
+    },
     MuiTableCell: {
       head: {
         fontSize: "1rem",

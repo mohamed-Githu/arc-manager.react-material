@@ -10,8 +10,20 @@ import {
   Radio,
   RadioGroup,
   FormControlLabel,
+  Select,
+  MenuItem,
 } from "@material-ui/core";
 import { KeyboardDatePicker } from "@material-ui/pickers";
+
+const platformsOptions = ["Web", "IOS", "Adroid"];
+const featuresOptions = [
+  "Photo/Video",
+  "GPS",
+  "File Transfer",
+  "User Authentication",
+  "Biometrics",
+  "Push Notifications",
+];
 
 const AddModal = (modalProps) => {
   const classes = useStyles();
@@ -20,10 +32,14 @@ const AddModal = (modalProps) => {
   const [input, setInput] = useState({
     name: "",
     total: "",
+
     service: "",
     complexity: "",
     users: "",
   });
+
+  const [platforms, setPlatforms] = useState([]);
+  const [features, setFeatures] = useState([]);
 
   const { name, total, service, complexity, users } = input;
   const handleChange = (e) =>
@@ -80,6 +96,24 @@ const AddModal = (modalProps) => {
                     control={<Radio />}
                   />
                 </RadioGroup>
+              </Grid>
+              <Grid item style={{ marginTop: "5em" }}>
+                <Select
+                  labelId="platforms"
+                  id="platforms"
+                  displayEmpty
+                  renderValue={platforms.length ? undefined : () => "Platforms"}
+                  multiple
+                  value={platforms}
+                  onChange={(e) => setPlatforms(e.target.value)}
+                  style={{ width: "12em" }}
+                >
+                  {platformsOptions.map((option) => (
+                    <MenuItem id="platforms" key={option} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </Select>
               </Grid>
             </Grid>
           </Grid>
@@ -145,7 +179,7 @@ const AddModal = (modalProps) => {
               />
             </Grid>
             <Grid item>
-              <Grid item container className={classes.radiosContainer}>
+              <Grid item container alignItems="center" className={classes.radiosContainer}>
                 <Grid item>
                   <Typography variant="h4">Users</Typography>
                 </Grid>
@@ -178,6 +212,24 @@ const AddModal = (modalProps) => {
                       control={<Radio />}
                     />
                   </RadioGroup>
+                </Grid>
+                <Grid item style={{ marginTop: "5em" }}>
+                  <Select
+                    labelId="features"
+                    id="features"
+                    displayEmpty
+                    renderValue={features.length ? undefined : () => "Features"}
+                    multiple
+                    value={features}
+                    onChange={(e) => setFeatures(e.target.value)}
+                    style={{ width: "12em" }}
+                  >
+                    {featuresOptions.map((option) => (
+                      <MenuItem id="platforms" key={option} value={option}>
+                        {option}
+                      </MenuItem>
+                    ))}
+                  </Select>
                 </Grid>
               </Grid>
             </Grid>
