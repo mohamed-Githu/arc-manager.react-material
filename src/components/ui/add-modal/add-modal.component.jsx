@@ -51,7 +51,7 @@ const AddModal = ({ addRow, ...modalProps }) => {
     }, "");
   };
 
-  const submitProject = () =>
+  const submitProject = () => {
     addRow({
       name,
       date: date.toDateString(),
@@ -61,6 +61,19 @@ const AddModal = ({ addRow, ...modalProps }) => {
       platforms: stringfyArray(platforms),
       total,
     });
+
+    setInput({
+      name: "",
+      total: "",
+
+      service: "",
+      complexity: "",
+      users: "",
+    });
+
+    setPlatforms([]);
+    setFeatures([]);
+  };
 
   return (
     <Modal {...modalProps}>
@@ -264,6 +277,17 @@ const AddModal = ({ addRow, ...modalProps }) => {
                   variant="container"
                   className={classes.addButton}
                   onClick={submitProject}
+                  disabled={!(
+                    service === "Website"
+                      ? name.length && total.length && features.length
+                      : name &&
+                        total.length &&
+                        features.length &&
+                        platforms.length &&
+                        complexity.length &&
+                        users.length &&
+                        service.length
+                  )}
                 >
                   Add Project +
                 </Button>
