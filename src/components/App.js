@@ -19,8 +19,6 @@ import AddModal from "./ui/add-modal/add-modal.component";
 
 import theme from './ui/Theme';
 
-const createRow = (name, data, service, features, complexity, platforms, total) => ([name, data, service, features, complexity, platforms, total]);
-
 const App = () => {
   const [inputValue, setInputValue] = useState("");
 
@@ -32,11 +30,12 @@ const App = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const handleModal = () => setModalOpen(!modalOpen);
 
-  const [rows, setRows] = useState([createRow("Mohamed Hussein", "4/3/2002", "Website", "N/A", "N/A", "N/A", "$1500"), createRow("Mohamed Hussein", "4/3/2002", "Website", "N/A", "N/A", "N/A", "$1500"), createRow("Custom Person", "4/3/2002", "Android", "E-commerce / Photo / Videos / Transfer Files / Push Notifications", "N/A", "N/A", "$1500"), createRow("Mohamed Hussein", "4/3/2002", "Website", "N/A", "N/A", "N/A", "$1500")]);
+  const [rows, setRows] = useState([]);
 
   const classes = useStyles();
 
   const handleInput = (e) => setInputValue(e.target.value);
+  const addRow = (newRow) => setRows([...rows, newRow]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -89,7 +88,7 @@ const App = () => {
         </Grid>
       </Grid>
       <Footer />
-      <AddModal open={modalOpen} onClose={handleModal} />
+      <AddModal open={modalOpen} addRow={addRow} onClose={handleModal} />
     </ThemeProvider>
   );
 }

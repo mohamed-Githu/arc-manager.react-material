@@ -20,7 +20,6 @@ const theme = createMuiTheme({
   },
   typography: {
     estimate: {
-      fontFamily: "Pacifico",
       fontSize: "1rem",
       color: "white",
       textTransform: "none", 
@@ -150,9 +149,6 @@ const theme = createMuiTheme({
       },
     },
     MuiInput: {
-      label: {
-
-      },
       formControl: {
         marginTop: 16,
       },

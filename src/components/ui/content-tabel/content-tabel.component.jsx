@@ -36,10 +36,14 @@ const ContentTable = ({ rows }) => {
           </TableHead>
           <TableBody>
             {rows.map((row, i) => (
-              <TableRow key={row[0] + i}>
-                {row.map((cell, i) => (
-                  <TableCell key={cell + i}>{cell}</TableCell>
-                ))}
+              <TableRow key={row.name + i}>
+                <TableCell>{row.name}</TableCell>
+                <TableCell>{row.date}</TableCell>
+                <TableCell>{row.service}</TableCell>
+                <TableCell>{row.features}</TableCell>
+                <TableCell>{row.complexity}</TableCell>
+                <TableCell>{row.platforms}</TableCell>
+                <TableCell>{row.total}</TableCell>
               </TableRow>
             ))}
           </TableBody>
