@@ -109,7 +109,7 @@ const AddModal = (modalProps) => {
                   style={{ width: "12em" }}
                 >
                   {platformsOptions.map((option) => (
-                    <MenuItem id="platforms" key={option} value={option}>
+                    <MenuItem key={option} value={option}>
                       {option}
                     </MenuItem>
                   ))}
@@ -179,7 +179,12 @@ const AddModal = (modalProps) => {
               />
             </Grid>
             <Grid item>
-              <Grid item container alignItems="center" className={classes.radiosContainer}>
+              <Grid
+                item
+                container
+                alignItems="center"
+                className={classes.radiosContainer}
+              >
                 <Grid item>
                   <Typography variant="h4">Users</Typography>
                 </Grid>
@@ -225,7 +230,7 @@ const AddModal = (modalProps) => {
                     style={{ width: "12em" }}
                   >
                     {featuresOptions.map((option) => (
-                      <MenuItem id="platforms" key={option} value={option}>
+                      <MenuItem key={option} value={option}>
                         {option}
                       </MenuItem>
                     ))}

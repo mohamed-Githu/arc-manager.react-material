@@ -23,7 +23,7 @@ const Header = () => {
   const classes = useStyles();
 
   return (
-    <header style={{ zIndex: 1302, position: "relative" }}>
+    <header>
       <ElevationScroll>
         <AppBar position="fixed">
           <Toolbar disableGutters>
