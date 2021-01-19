@@ -41,7 +41,7 @@ const AddModal = ({ addRow, ...modalProps }) => {
       name,
       date: date.toDateString(),
       service,
-      features: features.join(", "),
+      features: service === "Website" ? features : features.join(", "),
       complexity: service === "Website" ? "N/A" : complexity,
       platforms: service === "Website" ? "N/A" : platforms.join(", "),
       users: service === "Website" ? "N/A" : users,
@@ -162,7 +162,7 @@ const AddModal = ({ addRow, ...modalProps }) => {
                     onChange={handleDateChange}
                   />
                 </Grid>
-                <Grid item="">
+                <Grid item>
                   <Grid item container className={classes.radiosContainer}>
                     <Grid item>
                       <Typography variant="h4">Complexity</Typography>
@@ -281,7 +281,7 @@ const AddModal = ({ addRow, ...modalProps }) => {
             <Grid item container className={classes.buttonsContainer}>
               <Grid item>
                 <Button
-                  variant="container"
+                  variant="contained"
                   className={classes.addButton}
                   onClick={submitProject}
                   disabled={

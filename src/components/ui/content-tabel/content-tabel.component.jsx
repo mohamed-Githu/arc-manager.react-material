@@ -11,8 +11,16 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 
 import useStyles from "./content-tabel.styles";
 
-const ContentTable = ({ rows }) => {
+const ContentTable = ({ rows, searchValue }) => {
   const classes = useStyles();
+
+  const newRows = rows.filter((row) => {
+    for (const rowItem of Object.values(row)) {
+      if (rowItem.toLowerCase().includes(searchValue.toLowerCase()))
+        return true;
+    }
+    return false;
+  });
 
   return (
     <>
@@ -36,7 +44,7 @@ const ContentTable = ({ rows }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row, i) => (
+            {newRows.map((row, i) => (
               <TableRow key={row.name + i}>
                 <TableCell>{row.name}</TableCell>
                 <TableCell>{row.date}</TableCell>

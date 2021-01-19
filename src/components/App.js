@@ -84,7 +84,7 @@ const App = () => {
           </FormGroup>
         </Grid>
         <Grid item>
-          <ContentTable rows={rows} />
+          <ContentTable searchValue={inputValue} rows={rows} />
         </Grid>
       </Grid>
       <Footer />
