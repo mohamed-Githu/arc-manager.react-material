@@ -31,6 +31,7 @@ const ContentTable = ({ rows }) => {
               <TableCell>Features</TableCell>
               <TableCell>Complexity</TableCell>
               <TableCell>Platforms</TableCell>
+              <TableCell>Users</TableCell>
               <TableCell>Total</TableCell>
             </TableRow>
           </TableHead>
@@ -43,7 +44,8 @@ const ContentTable = ({ rows }) => {
                 <TableCell>{row.features}</TableCell>
                 <TableCell>{row.complexity}</TableCell>
                 <TableCell>{row.platforms}</TableCell>
-                <TableCell>{row.total}</TableCell>
+                <TableCell>{row.users}</TableCell>
+                <TableCell>$ {row.total}</TableCell>
               </TableRow>
             ))}
           </TableBody>

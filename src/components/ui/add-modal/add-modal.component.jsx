@@ -16,16 +16,6 @@ import {
 } from "@material-ui/core";
 import { KeyboardDatePicker } from "@material-ui/pickers";
 
-const platformsOptions = ["Web", "IOS", "Adroid"];
-const featuresOptions = [
-  "Photo/Video",
-  "GPS",
-  "File Transfer",
-  "User Authentication",
-  "Biometrics",
-  "Push Notifications",
-];
-
 const AddModal = ({ addRow, ...modalProps }) => {
   const classes = useStyles();
 
@@ -45,20 +35,16 @@ const AddModal = ({ addRow, ...modalProps }) => {
   const { name, total, service, complexity, users } = input;
   const handleChange = (e) =>
     setInput({ ...input, [e.target.id]: e.target.value });
-  const stringfyArray = (array) => {
-    return array.reduce((acc, item, i) => {
-      return i === 0 ? item : acc + " / " + item;
-    }, "");
-  };
 
   const submitProject = () => {
     addRow({
       name,
       date: date.toDateString(),
       service,
-      features: stringfyArray(features),
-      complexity,
-      platforms: stringfyArray(platforms),
+      features: features.join(", "),
+      complexity: service === "Website" ? "N/A" : complexity,
+      platforms: service === "Website" ? "N/A" : platforms.join(", "),
+      users: service === "Website" ? "N/A" : users,
       total,
     });
 
@@ -73,7 +59,22 @@ const AddModal = ({ addRow, ...modalProps }) => {
 
     setPlatforms([]);
     setFeatures([]);
+
+    modalProps.onClose();
   };
+
+  const platformsOptions = ["Web", "IOS", "Adroid"];
+  const featuresOptions =
+    service !== "Website"
+      ? [
+          "Photo/Video",
+          "GPS",
+          "File Transfer",
+          "User Authentication",
+          "Biometrics",
+          "Push Notifications",
+        ]
+      : ["Basic", "Interactive", "E-Commerce"];
 
   return (
     <Modal {...modalProps}>
@@ -104,9 +105,10 @@ const AddModal = ({ addRow, ...modalProps }) => {
                       aria-label="service"
                       name="service"
                       value={service}
-                      onChange={(e) =>
-                        setInput({ ...input, service: e.target.value })
-                      }
+                      onChange={(e) => {
+                        setInput({ ...input, service: e.target.value });
+                        setFeatures([]);
+                      }}
                     >
                       <FormControlLabel
                         classes={{ label: classes.service }}
@@ -141,6 +143,7 @@ const AddModal = ({ addRow, ...modalProps }) => {
                       value={platforms}
                       onChange={(e) => setPlatforms(e.target.value)}
                       style={{ width: "12em" }}
+                      disabled={service === "Website"}
                     >
                       {platformsOptions.map((option) => (
                         <MenuItem key={option} value={option}>
@@ -178,19 +181,21 @@ const AddModal = ({ addRow, ...modalProps }) => {
                           value="Low"
                           label="Low"
                           control={<Radio />}
-                          color="primary"
+                          disabled={service === "Website"}
                         />
                         <FormControlLabel
                           classes={{ label: classes.service }}
                           value="Medium"
                           label="Medium"
                           control={<Radio />}
+                          disabled={service === "Website"}
                         />
                         <FormControlLabel
                           classes={{ label: classes.service }}
                           value="High"
                           label="High"
                           control={<Radio />}
+                          disabled={service === "Website"}
                         />
                       </RadioGroup>
                     </Grid>
@@ -231,19 +236,21 @@ const AddModal = ({ addRow, ...modalProps }) => {
                           value="0-10"
                           label="0-10"
                           control={<Radio />}
-                          color="primary"
+                          disabled={service === "Website"}
                         />
                         <FormControlLabel
                           classes={{ label: classes.service }}
                           value="10-100"
                           label="10-100"
                           control={<Radio />}
+                          disabled={service === "Website"}
                         />
                         <FormControlLabel
                           classes={{ label: classes.service }}
                           value="100+"
                           label="100+"
                           control={<Radio />}
+                          disabled={service === "Website"}
                         />
                       </RadioGroup>
                     </Grid>
@@ -255,7 +262,7 @@ const AddModal = ({ addRow, ...modalProps }) => {
                         renderValue={
                           features.length ? undefined : () => "Features"
                         }
-                        multiple
+                        multiple={service !== "Website"}
                         value={features}
                         onChange={(e) => setFeatures(e.target.value)}
                         style={{ width: "12em" }}
@@ -277,8 +284,8 @@ const AddModal = ({ addRow, ...modalProps }) => {
                   variant="container"
                   className={classes.addButton}
                   onClick={submitProject}
-                  disabled={!(
-                    service === "Website"
+                  disabled={
+                    !(service === "Website"
                       ? name.length && total.length && features.length
                       : name &&
                         total.length &&
@@ -286,8 +293,8 @@ const AddModal = ({ addRow, ...modalProps }) => {
                         platforms.length &&
                         complexity.length &&
                         users.length &&
-                        service.length
-                  )}
+                        service.length)
+                  }
                 >
                   Add Project +
                 </Button>
