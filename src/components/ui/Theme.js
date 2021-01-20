@@ -148,6 +148,19 @@ const theme = createMuiTheme({
         fontWeight: 400,
       },
     },
+    MuiTableSortLabel: {
+      root: {
+        "&:hover": {
+          color: arcOrange,
+        },
+        "&.MuiTableSortLabel-active": {
+          color: arcOrange,
+        },
+      },
+      icon: {
+        fill: arcOrange,
+      },
+    },
     MuiInput: {
       formControl: {
         marginTop: 16,

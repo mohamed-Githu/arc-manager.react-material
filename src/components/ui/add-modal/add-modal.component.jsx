@@ -15,6 +15,7 @@ import {
   Button,
 } from "@material-ui/core";
 import { KeyboardDatePicker } from "@material-ui/pickers";
+import {format} from "date-fns";
 
 const AddModal = ({ addRow, ...modalProps }) => {
   const classes = useStyles();
@@ -39,7 +40,7 @@ const AddModal = ({ addRow, ...modalProps }) => {
   const submitProject = () => {
     addRow({
       name,
-      date: date.toDateString(),
+      date: format(date, "MM/dd/yy"),
       service,
       features: service === "Website" ? features : features.join(", "),
       complexity: service === "Website" ? "N/A" : complexity,

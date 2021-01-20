@@ -14,7 +14,7 @@ import AddIcon from "@material-ui/icons/Add";
 import Footer from './ui/footer/footer.component';
 import Header from './ui/header/Header.component';
 import Switch from "./ui/switch-form/switch-form.component";
-import ContentTable from "./ui/content-tabel/content-tabel.component";
+import EnhancedTable from "./ui/content-tabel/content-tabel.component";
 import AddModal from "./ui/add-modal/add-modal.component";
 
 import theme from './ui/Theme';
@@ -83,8 +83,8 @@ const App = () => {
             />
           </FormGroup>
         </Grid>
-        <Grid item>
-          <ContentTable searchValue={inputValue} rows={rows} />
+        <Grid item style={{ margin: "5em 0 15em 0" }}>
+          <EnhancedTable searchValue={inputValue} rows={rows} />
         </Grid>
       </Grid>
       <Footer />
