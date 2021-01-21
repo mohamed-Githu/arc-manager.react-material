@@ -88,7 +88,7 @@ const App = () => {
         </Grid>
       </Grid>
       <Footer />
-      <AddModal open={modalOpen} addRow={addRow} onClose={handleModal} />
+      <AddModal open={modalOpen} addRow={addRow} rows={rows} onClose={handleModal} />
     </ThemeProvider>
   );
 }

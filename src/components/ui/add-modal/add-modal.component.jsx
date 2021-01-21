@@ -15,9 +15,9 @@ import {
   Button,
 } from "@material-ui/core";
 import { KeyboardDatePicker } from "@material-ui/pickers";
-import {format} from "date-fns";
+import { format } from "date-fns";
 
-const AddModal = ({ addRow, ...modalProps }) => {
+const AddModal = ({ addRow, rows, ...modalProps }) => {
   const classes = useStyles();
 
   const [date, handleDateChange] = useState(new Date());
@@ -77,6 +77,8 @@ const AddModal = ({ addRow, ...modalProps }) => {
         ]
       : ["Basic", "Interactive", "E-Commerce"];
 
+  const exicts = rows.some((row) => row.name === name);
+
   return (
     <Modal {...modalProps}>
       <Grid container className={classes.modal}>
@@ -95,6 +97,11 @@ const AddModal = ({ addRow, ...modalProps }) => {
                     label="Name"
                     value={name}
                     onChange={handleChange}
+                    error={exicts}
+                    autoFocus
+                    helperText={
+                      exicts ? "The project name already exicts!" : null
+                    }
                   />
                 </Grid>
                 <Grid item container className={classes.radiosContainer}>
@@ -287,14 +294,15 @@ const AddModal = ({ addRow, ...modalProps }) => {
                   onClick={submitProject}
                   disabled={
                     !(service === "Website"
-                      ? name.length && total.length && features.length
-                      : name &&
+                      ? name.length && total.length && features.length && !exicts
+                      : name.length &&
                         total.length &&
                         features.length &&
                         platforms.length &&
                         complexity.length &&
                         users.length &&
-                        service.length)
+                        service.length &&
+                        !exicts)
                   }
                 >
                   Add Project +
