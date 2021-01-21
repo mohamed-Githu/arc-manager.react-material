@@ -37,6 +37,10 @@ const App = () => {
   const handleInput = (e) => setInputValue(e.target.value);
   const addRow = (newRow) => setRows([...rows, newRow]);
 
+  const deleteRows = (selectedRows) => setRows(
+    rows.filter(row => !selectedRows.includes(row.name))
+  );
+
   return (
     <ThemeProvider theme={theme}>
       <Header />
@@ -84,7 +88,7 @@ const App = () => {
           </FormGroup>
         </Grid>
         <Grid item style={{ margin: "5em 0 15em 0" }}>
-          <EnhancedTable searchValue={inputValue} rows={rows} />
+          <EnhancedTable handleDelete={deleteRows} searchValue={inputValue} rows={rows} />
         </Grid>
       </Grid>
       <Footer />

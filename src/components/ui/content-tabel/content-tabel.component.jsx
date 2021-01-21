@@ -1,70 +1,3 @@
-// import {
-//   Table,
-//   TableRow,
-//   TableBody,
-//   TableHead,
-//   TableContainer,
-//   TableCell,
-//   Grid,
-// } from "@material-ui/core";
-// import FilterListIcon from "@material-ui/icons/FilterList";
-
-// import useStyles from "./content-tabel.styles";
-
-// const ContentTable = ({ rows, searchValue }) => {
-//   const classes = useStyles();
-
-//   const newRows = rows.filter((row) => {
-//     for (const rowItem of Object.values(row)) {
-//       if (rowItem.toLowerCase().includes(searchValue.toLowerCase()))
-//         return true;
-//     }
-//     return false;
-//   });
-
-//   return (
-//     <>
-//       <Grid container justify="flex-end">
-//         <Grid item>
-//           <FilterListIcon color="secondary" className={classes.filterIcon} />
-//         </Grid>
-//       </Grid>
-//       <TableContainer className={classes.tableContainer}>
-//         <Table>
-//           <TableHead>
-//             <TableRow>
-//               <TableCell>Name</TableCell>
-//               <TableCell>Date</TableCell>
-//               <TableCell>Service</TableCell>
-//               <TableCell>Features</TableCell>
-//               <TableCell>Complexity</TableCell>
-//               <TableCell>Platforms</TableCell>
-//               <TableCell>Users</TableCell>
-//               <TableCell>Total</TableCell>
-//             </TableRow>
-//           </TableHead>
-//           <TableBody>
-//             {newRows.map((row, i) => (
-//               <TableRow key={row.name + i}>
-//                 <TableCell>{row.name}</TableCell>
-//                 <TableCell>{row.date}</TableCell>
-//                 <TableCell>{row.service}</TableCell>
-//                 <TableCell>{row.features}</TableCell>
-//                 <TableCell>{row.complexity}</TableCell>
-//                 <TableCell>{row.platforms}</TableCell>
-//                 <TableCell>{row.users}</TableCell>
-//                 <TableCell>$ {row.total}</TableCell>
-//               </TableRow>
-//             ))}
-//           </TableBody>
-//         </Table>
-//       </TableContainer>
-//     </>
-//   );
-// };
-
-// export default ContentTable;
-
 import React from "react";
 import clsx from "clsx";
 import { lighten, makeStyles } from "@material-ui/core/styles";
@@ -83,7 +16,6 @@ import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
-import Grid from "@material-ui/core/Grid";
 import FilterListIcon from "@material-ui/icons/FilterList";
 
 const getFilterdRows = (searchValue, rows) =>
@@ -213,7 +145,7 @@ const EnhancedTableToolbar = (props) => {
         [classes.highlight]: numSelected > 0,
       })}
     >
-      {numSelected > 0 && (
+      {numSelected > 0 ? (
         <Typography
           className={classes.title}
           color="inherit"
@@ -222,22 +154,20 @@ const EnhancedTableToolbar = (props) => {
         >
           {numSelected} selected
         </Typography>
+      ) : (
+        <Typography className={classes.title}>{null}</Typography>
       )}
 
       {numSelected > 0 ? (
         <Tooltip title="Delete">
-          <IconButton aria-label="delete">
+          <IconButton aria-label="delete" onClick={props.onDelete}>
             <DeleteIcon style={{ fontSize: 30 }} color="primary" />
           </IconButton>
         </Tooltip>
       ) : (
         <Tooltip title="Filter list">
           <IconButton aria-label="filter list">
-            <Grid container justify="center" alignItems="flex-end">
-              <Grid item>
-                <FilterListIcon color="secondary" style={{ fontSize: 50 }} />
-              </Grid>
-            </Grid>
+            <FilterListIcon color="secondary" style={{ fontSize: 50 }} />
           </IconButton>
         </Tooltip>
       )}
@@ -269,7 +199,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EnhancedTable = ({ rows, searchValue }) => {
+const EnhancedTable = ({ rows, searchValue, handleDelete }) => {
   const classes = useStyles();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("name");
@@ -325,10 +255,18 @@ const EnhancedTable = ({ rows, searchValue }) => {
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
+  const onDelete = () => {
+    handleDelete(selected);
+    setSelected([]);
+  };
+
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar
+          onDelete={onDelete}
+          numSelected={selected.length}
+        />
         <TableContainer>
           <Table
             className={classes.table}
