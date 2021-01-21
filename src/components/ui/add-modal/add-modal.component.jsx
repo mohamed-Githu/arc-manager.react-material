@@ -39,7 +39,7 @@ const AddModal = ({ addRow, rows, ...modalProps }) => {
 
   const submitProject = () => {
     addRow({
-      name,
+      name: name.trim(),
       date: format(date, "MM/dd/yy"),
       service,
       features: service === "Website" ? features : features.join(", "),
