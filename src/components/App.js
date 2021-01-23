@@ -26,10 +26,14 @@ const App = () => {
 
   const [inputValue, setInputValue] = useState("");
 
-  const [websiteSwitch, setWebsiteSwitch] = useState(false);
-  const [iosSwitch, setIosSwitch] = useState(false);
-  const [androidSwitch, setAndroidSwitch] = useState(false);
-  const [softwareSwitch, setSoftwareSwitch] = useState(false);
+  const [switches, setSwitches] = useState({
+    websites: false,
+    ios: false,
+    android: false,
+    customsoftware: false,
+  });
+
+  const { websites, ios, android, customsoftware } = switches;
 
   const [modalOpen, setModalOpen] = useState(false);
   const handleModal = () => setModalOpen(!modalOpen);
@@ -51,12 +55,14 @@ const App = () => {
 
   const deleteRows = (selectedRows) => {
     const _deletedRows = [];
+
     const updatedRows = rows.filter((row, i) => {
       if (!selectedRows.includes(row.name))
         return true;
       _deletedRows.push(rows[i]);
       return false;
     });
+    
     setProjects({deletedRows: _deletedRows, rows: updatedRows});
     setAlert({...alert, open: true});
   }
@@ -70,6 +76,20 @@ const App = () => {
     setProjects({deletedRows: [], rows: [...rows, ...deletedRows]});
     setAlert({...alert, open: false});
   };
+
+  const getFilterdRows = () => {
+    if (!websites && !ios && !android && !customsoftware)
+      return rows;
+    
+    const filterdRows = rows.filter(({ service, platforms }) => 
+      (service === "Website" && websites) ||
+      (platforms.includes("IOS") && ios) ||
+      (platforms.includes("Android") && android) ||
+      (service === "Custom Software" && customsoftware)
+    )
+
+    return filterdRows;
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -97,28 +117,28 @@ const App = () => {
           <FormGroup row>
             <Switch
               label="Websites"
-              checked={websiteSwitch} 
-              onChange={() => setWebsiteSwitch(!websiteSwitch)}
+              checked={websites} 
+              onChange={() => setSwitches({...switches, websites: !websites})}
             />
             <Switch
               label="IOS Apps"
-              checked={iosSwitch} 
-              onChange={() => setIosSwitch(!iosSwitch)}
+              checked={ios}
+              onChange={() => setSwitches({...switches, ios: !ios})}
             />
             <Switch
               label="Android Apps"
-              checked={androidSwitch} 
-              onChange={() => setAndroidSwitch(!androidSwitch)}
+              checked={android}
+              onChange={() => setSwitches({...switches, android: !android})}
             />
             <Switch
               label="Custom Software"
-              checked={softwareSwitch} 
-              onChange={() => setSoftwareSwitch(!softwareSwitch)}
+              checked={customsoftware}
+              onChange={() => setSwitches({...switches, customsoftware: !customsoftware})}
             />
           </FormGroup>
         </Grid>
         <Grid item style={{ margin: "5em 0 15em 0" }}>
-          <EnhancedTable handleDelete={deleteRows} searchValue={inputValue} rows={rows} />
+          <EnhancedTable handleDelete={deleteRows} searchValue={inputValue} rows={getFilterdRows()} />
         </Grid>
       </Grid>
       <Footer />

@@ -64,7 +64,7 @@ const AddModal = ({ addRow, rows, ...modalProps }) => {
     modalProps.onClose();
   };
 
-  const platformsOptions = ["Web", "IOS", "Adroid"];
+  const platformsOptions = ["Web", "IOS", "Android"];
   const featuresOptions =
     service !== "Website"
       ? [
