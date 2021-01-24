@@ -17,6 +17,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FilterListIcon from "@material-ui/icons/FilterList";
+import { MenuItem, Menu, TextField, InputAdornment } from "@material-ui/core";
 
 const getFilterdRows = (searchValue, rows) =>
   rows.filter((row) => {
@@ -133,11 +134,50 @@ const useToolbarStyles = makeStyles((theme) => ({
   title: {
     flex: "1 1 100%",
   },
+  menu: {
+    "&:hover": {
+      backgroundColor: "#fff",
+    },
+    "&.Mui-focusVisible": {
+      backgroundColor: "#fff",
+    },
+  },
+  totalFilter: {
+    fontSize: "2em",
+    color: theme.palette.secondary.main,
+    fontWeight: 400,
+    padding: 0,
+  },
+  dolarSign: {
+    fontSize: "1.5em",
+    color: theme.palette.secondary.main,
+    fontWeight: 300,
+  },
 }));
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
   const { numSelected } = props;
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [totalFilterIcon, setTotalFilterIcon] = React.useState(">");
+  const [filterValue, setFilterValue] = React.useState("");
+
+  const handleMenu = (e) =>
+    setAnchorEl(!Boolean(anchorEl) ? e.currentTarget : null);
+
+  const handleTotalFilterIcon = () =>
+    setTotalFilterIcon(
+      totalFilterIcon === ">" ? "<" : totalFilterIcon === "<" ? "=" : ">"
+    );
+
+  const handlePriceFilter = ({target: {value}}) => {
+    setFilterValue(value);
+    if (value === "")
+      return;
+
+    props.filterByPrice(parseInt(value), totalFilterIcon);
+  }
 
   return (
     <Toolbar
@@ -166,11 +206,46 @@ const EnhancedTableToolbar = (props) => {
         </Tooltip>
       ) : (
         <Tooltip title="Filter list">
-          <IconButton aria-label="filter list">
+          <IconButton aria-label="filter list" onClick={handleMenu}>
             <FilterListIcon color="secondary" style={{ fontSize: 50 }} />
           </IconButton>
         </Tooltip>
       )}
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleMenu}
+        elevation={0}
+        keepMounted
+      >
+        <MenuItem disableTouchRipple classes={{ root: classes.menu }}>
+          <TextField
+            placeholder="Enter a price to filter"
+            value={filterValue}
+            onChange={handlePriceFilter}
+            InputProps={{
+              type: "number",
+              endAdornment: (
+                <InputAdornment
+                  position="end"
+                  onClick={handleTotalFilterIcon}
+                  style={{ cursor: "pointer" }}
+                >
+                  <IconButton className={classes.totalFilter}>
+                    <span>{totalFilterIcon}</span>
+                  </IconButton>
+                </InputAdornment>
+              ),
+              startAdornment: (
+                <InputAdornment position="start">
+                  <span className={classes.dolarSign}>$</span>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </MenuItem>
+      </Menu>
     </Toolbar>
   );
 };
@@ -266,6 +341,7 @@ const EnhancedTable = ({ rows, searchValue, handleDelete }) => {
         <EnhancedTableToolbar
           onDelete={onDelete}
           numSelected={selected.length}
+          // filterByPrice={handlePriceFilter}
         />
         <TableContainer>
           <Table
