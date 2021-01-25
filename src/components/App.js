@@ -89,7 +89,7 @@ const App = () => {
     )
 
     return filterdRows;
-  }
+  };
 
   return (
     <ThemeProvider theme={theme}>

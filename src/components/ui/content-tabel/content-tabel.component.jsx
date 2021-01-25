@@ -168,16 +168,15 @@ const EnhancedTableToolbar = (props) => {
 
   const handleTotalFilterIcon = () =>
     setTotalFilterIcon(
-      totalFilterIcon === ">" ? "<" : totalFilterIcon === "<" ? "=" : ">"
+      totalFilterIcon === ">" ? "<" : totalFilterIcon === "<" ? "===" : ">"
     );
 
-  const handlePriceFilter = ({target: {value}}) => {
+  const handlePriceFilter = ({ target: { value } }) => {
     setFilterValue(value);
-    if (value === "")
-      return;
+    if (value === "") return;
 
     props.filterByPrice(parseInt(value), totalFilterIcon);
-  }
+  };
 
   return (
     <Toolbar
@@ -233,7 +232,7 @@ const EnhancedTableToolbar = (props) => {
                   style={{ cursor: "pointer" }}
                 >
                   <IconButton className={classes.totalFilter}>
-                    <span>{totalFilterIcon}</span>
+                    <span>{totalFilterIcon[0]}</span>
                   </IconButton>
                 </InputAdornment>
               ),
@@ -281,6 +280,8 @@ const EnhancedTable = ({ rows, searchValue, handleDelete }) => {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [evalSign, setEvalSign] = React.useState(">");
+  const [totalFilterValue, setTotalFilterValue] = React.useState(null);
 
   const filterdRows = getFilterdRows(searchValue, rows);
 
@@ -335,13 +336,18 @@ const EnhancedTable = ({ rows, searchValue, handleDelete }) => {
     setSelected([]);
   };
 
+  const handlePriceFilter = (newValue, newSign) => {
+    setEvalSign(newSign);
+    setTotalFilterValue(newValue);
+  };
+
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <EnhancedTableToolbar
           onDelete={onDelete}
           numSelected={selected.length}
-          // filterByPrice={handlePriceFilter}
+          filterByPrice={handlePriceFilter}
         />
         <TableContainer>
           <Table
@@ -366,7 +372,9 @@ const EnhancedTable = ({ rows, searchValue, handleDelete }) => {
                   const isItemSelected = isSelected(row.name);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
-                  return (
+                  return eval(
+                    `${row.total} ${evalSign} ${totalFilterValue}`
+                  ) ? (
                     <TableRow
                       hover
                       onClick={(event) => handleClick(event, row.name)}
@@ -399,7 +407,7 @@ const EnhancedTable = ({ rows, searchValue, handleDelete }) => {
                       <TableCell align="center">{row.users}</TableCell>
                       <TableCell align="center">{row.total}</TableCell>
                     </TableRow>
-                  );
+                  ) : null;
                 })}
             </TableBody>
           </Table>
