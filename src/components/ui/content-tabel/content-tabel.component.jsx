@@ -173,9 +173,7 @@ const EnhancedTableToolbar = (props) => {
 
   const handlePriceFilter = ({ target: { value } }) => {
     setFilterValue(value);
-    if (value === "") return;
-
-    props.filterByPrice(parseInt(value), totalFilterIcon);
+    props.filterByPrice(value, totalFilterIcon);
   };
 
   return (
@@ -281,7 +279,7 @@ const EnhancedTable = ({ rows, searchValue, handleDelete }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [evalSign, setEvalSign] = React.useState(">");
-  const [totalFilterValue, setTotalFilterValue] = React.useState(null);
+  const [totalFilterValue, setTotalFilterValue] = React.useState("");
 
   const filterdRows = getFilterdRows(searchValue, rows);
 
@@ -341,6 +339,10 @@ const EnhancedTable = ({ rows, searchValue, handleDelete }) => {
     setTotalFilterValue(newValue);
   };
 
+  const isFilterd = (total) =>
+    totalFilterValue.length === 0 ||
+    eval(`${total} ${evalSign} ${totalFilterValue}`);
+
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
@@ -372,9 +374,7 @@ const EnhancedTable = ({ rows, searchValue, handleDelete }) => {
                   const isItemSelected = isSelected(row.name);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
-                  return eval(
-                    `${row.total} ${evalSign} ${totalFilterValue}`
-                  ) ? (
+                  return isFilterd(row.total) ? (
                     <TableRow
                       hover
                       onClick={(event) => handleClick(event, row.name)}
