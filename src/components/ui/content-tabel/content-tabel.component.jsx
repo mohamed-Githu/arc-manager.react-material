@@ -17,7 +17,14 @@ import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
 import FilterListIcon from "@material-ui/icons/FilterList";
-import { MenuItem, Menu, TextField, InputAdornment } from "@material-ui/core";
+import {
+  MenuItem,
+  Menu,
+  TextField,
+  InputAdornment,
+  Chip,
+  Grid,
+} from "@material-ui/core";
 
 const getFilterdRows = (searchValue, rows) =>
   rows.filter((row) => {
@@ -157,25 +164,26 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numSelected } = props;
+  const {
+    numSelected,
+    totalFilterIcon,
+    setTotalFilterIcon,
+    filterValue,
+    setFilterValue,
+  } = props;
 
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [totalFilterIcon, setTotalFilterIcon] = React.useState(">");
-  const [filterValue, setFilterValue] = React.useState("");
 
   const handleMenu = (e) =>
     setAnchorEl(!Boolean(anchorEl) ? e.currentTarget : null);
 
-  const handleTotalFilterIcon = () => {
-    const newIcon =
-      totalFilterIcon === ">" ? "<" : totalFilterIcon === "<" ? "===" : ">";
-    setTotalFilterIcon(newIcon);
-    props.filterByPrice(filterValue, newIcon);
-  };
+  const handleTotalFilterIcon = () =>
+    setTotalFilterIcon(
+      totalFilterIcon === ">" ? "<" : totalFilterIcon === "<" ? "===" : ">"
+    );
 
   const handlePriceFilter = ({ target: { value } }) => {
     setFilterValue(value);
-    props.filterByPrice(value, totalFilterIcon);
   };
 
   return (
@@ -271,6 +279,11 @@ const useStyles = makeStyles((theme) => ({
     top: 20,
     width: 1,
   },
+  chip: {
+    marginRight: "2em",
+    backgroundColor: theme.palette.common.blue,
+    color: "#FFF",
+  },
 }));
 
 const EnhancedTable = ({ rows, searchValue, handleDelete }) => {
@@ -336,23 +349,20 @@ const EnhancedTable = ({ rows, searchValue, handleDelete }) => {
     setSelected([]);
   };
 
-  const handlePriceFilter = (newValue, newSign) => {
-    setEvalSign(newSign);
-    setTotalFilterValue(newValue);
-    console.log(newValue, newSign);
-  };
-
   const isFilterd = (total) =>
     totalFilterValue.length === 0 ||
     eval(`${total} ${evalSign} ${totalFilterValue}`);
 
   return (
     <div className={classes.root}>
-      <Paper className={classes.paper}>
+      <Paper elevation={0} className={classes.paper}>
         <EnhancedTableToolbar
           onDelete={onDelete}
           numSelected={selected.length}
-          filterByPrice={handlePriceFilter}
+          totalFilterIcon={evalSign}
+          setTotalFilterIcon={setEvalSign}
+          filterValue={totalFilterValue}
+          setFilterValue={setTotalFilterValue}
         />
         <TableContainer>
           <Table
@@ -424,6 +434,23 @@ const EnhancedTable = ({ rows, searchValue, handleDelete }) => {
           onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
+        <Grid container justify="flex-end">
+          <Grid item>
+            {totalFilterValue && (
+              <Chip
+                onDelete={() => setTotalFilterValue("")}
+                label={
+                  (evalSign === ">"
+                    ? "Greater than"
+                    : evalSign === "<"
+                    ? "Less than"
+                    : "Equal to") + ` $${totalFilterValue}`
+                }
+                className={classes.chip}
+              />
+            )}
+          </Grid>
+        </Grid>
       </Paper>
     </div>
   );
