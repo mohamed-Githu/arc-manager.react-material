@@ -166,10 +166,12 @@ const EnhancedTableToolbar = (props) => {
   const handleMenu = (e) =>
     setAnchorEl(!Boolean(anchorEl) ? e.currentTarget : null);
 
-  const handleTotalFilterIcon = () =>
-    setTotalFilterIcon(
-      totalFilterIcon === ">" ? "<" : totalFilterIcon === "<" ? "===" : ">"
-    );
+  const handleTotalFilterIcon = () => {
+    const newIcon =
+      totalFilterIcon === ">" ? "<" : totalFilterIcon === "<" ? "===" : ">";
+    setTotalFilterIcon(newIcon);
+    props.filterByPrice(filterValue, newIcon);
+  };
 
   const handlePriceFilter = ({ target: { value } }) => {
     setFilterValue(value);
@@ -337,6 +339,7 @@ const EnhancedTable = ({ rows, searchValue, handleDelete }) => {
   const handlePriceFilter = (newValue, newSign) => {
     setEvalSign(newSign);
     setTotalFilterValue(newValue);
+    console.log(newValue, newSign);
   };
 
   const isFilterd = (total) =>
