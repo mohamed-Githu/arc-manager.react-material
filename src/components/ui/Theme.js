@@ -117,10 +117,7 @@ const theme = createMuiTheme({
       },
       labelPlacementStart: {
         marginLeft: 0,
-        marginRight: "5em",
-        "&:last-child": {
-          marginRight: 0,
-        },
+        marginRight: ".1em",
       },
     },
     MuiButton: {
@@ -193,8 +190,8 @@ const theme = createMuiTheme({
       root: {
         margin: undefined,
         border: undefined,
-      }
-    }
+      },
+    },
   },
 })
 

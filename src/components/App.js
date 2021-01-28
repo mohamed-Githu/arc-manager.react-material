@@ -10,6 +10,9 @@ import {
   FormGroup,
   Snackbar,
   Button,
+  FormControlLabel,
+  // useTheme,
+  useMediaQuery,
 } from '@material-ui/core';
 import AddIcon from "@material-ui/icons/Add";
 
@@ -23,6 +26,8 @@ import theme from './ui/Theme';
 
 const App = () => {
   const classes = useStyles();
+  // const theme = useTheme();
+  const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [inputValue, setInputValue] = useState("");
 
@@ -94,7 +99,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Header />
-      <Grid container direction="column">
+      <Grid container className={classes.appContainer}>
         <Grid item className={classes.header}>
           <Typography variant="h2">
             Projects
@@ -114,30 +119,42 @@ const App = () => {
           />
         </Grid>
         <Grid item className={classes.switchsContainer}>
-          <FormGroup row>
-            <Switch
+          <FormGroup row className={classes.switchesInnerContainer}>
+            <FormControlLabel
               label="Websites"
-              checked={websites} 
-              onChange={() => setSwitches({...switches, websites: !websites})}
+              labelPlacement={matchesSM ? "end" : "start"}
+              control={<Switch
+                checked={websites} 
+                onChange={() => setSwitches({...switches, websites: !websites})}
+              />}
             />
-            <Switch
+            <FormControlLabel
               label="IOS Apps"
-              checked={ios}
-              onChange={() => setSwitches({...switches, ios: !ios})}
+              labelPlacement={matchesSM ? "end" : "start"}
+              control={<Switch
+                checked={ios}
+                onChange={() => setSwitches({...switches, ios: !ios})}
+              />}
             />
-            <Switch
+            <FormControlLabel
               label="Android Apps"
-              checked={android}
-              onChange={() => setSwitches({...switches, android: !android})}
+              labelPlacement={matchesSM ? "end" : "start"}
+              control={<Switch
+                checked={android}
+                onChange={() => setSwitches({...switches, android: !android})}
+              />}
             />
-            <Switch
+            <FormControlLabel
               label="Custom Software"
-              checked={customsoftware}
-              onChange={() => setSwitches({...switches, customsoftware: !customsoftware})}
+              labelPlacement={matchesSM ? "end" : "start"}
+              control={<Switch
+                checked={customsoftware}
+                onChange={() => setSwitches({...switches, customsoftware: !customsoftware})}
+              />}
             />
           </FormGroup>
         </Grid>
-        <Grid item style={{ margin: "5em 0 15em 0" }}>
+        <Grid item className={classes.tableContainer}>
           <EnhancedTable handleDelete={deleteRows} searchValue={inputValue} rows={getFilterdRows()} />
         </Grid>
       </Grid>
