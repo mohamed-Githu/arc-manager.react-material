@@ -13,12 +13,16 @@ import {
   Select,
   MenuItem,
   Button,
+  useTheme,
+  useMediaQuery,
 } from "@material-ui/core";
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import { format } from "date-fns";
 
 const AddModal = ({ addRow, rows, ...modalProps }) => {
   const classes = useStyles();
+  const theme = useTheme();
+  const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [date, handleDateChange] = useState(new Date());
   const [input, setInput] = useState({
@@ -90,7 +94,7 @@ const AddModal = ({ addRow, rows, ...modalProps }) => {
           </Grid>
           <Grid item container>
             <Grid item container justify="space-between">
-              <Grid item container direction="column" sm>
+              <Grid item container sm className={classes.column1}>
                 <Grid item>
                   <TextField
                     id="name"
@@ -139,7 +143,7 @@ const AddModal = ({ addRow, rows, ...modalProps }) => {
                       />
                     </RadioGroup>
                   </Grid>
-                  <Grid item style={{ marginTop: "5em" }}>
+                  <Grid item className={classes.selectContainer}>
                     <Select
                       labelId="platforms"
                       id="platforms"
@@ -210,7 +214,13 @@ const AddModal = ({ addRow, rows, ...modalProps }) => {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item container direction="column" alignItems="flex-end" sm>
+              <Grid
+                item
+                container
+                direction="column"
+                alignItems={matchesSM ? "center" : "flex-end"}
+                sm
+              >
                 <Grid item>
                   <TextField
                     InputProps={{
@@ -262,7 +272,7 @@ const AddModal = ({ addRow, rows, ...modalProps }) => {
                         />
                       </RadioGroup>
                     </Grid>
-                    <Grid item style={{ marginTop: "5em" }}>
+                    <Grid item className={classes.selectContainer}>
                       <Select
                         labelId="features"
                         id="features"
@@ -294,7 +304,10 @@ const AddModal = ({ addRow, rows, ...modalProps }) => {
                   onClick={submitProject}
                   disabled={
                     !(service === "Website"
-                      ? name.length && total.length && features.length && !exicts
+                      ? name.length &&
+                        total.length &&
+                        features.length &&
+                        !exicts
                       : name.length &&
                         total.length &&
                         features.length &&

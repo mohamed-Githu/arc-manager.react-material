@@ -28,19 +28,13 @@ const useStyles = makeStyles((theme) => ({
     "&:focus": {
       outline: "none",
     },
-    // [theme.breakpoints.down("md")]: {
-    //   width: "40em",
-    // },
-    // [theme.breakpoints.down("sm")]: {
-    //   width: "30em",
-    // },
-    // [theme.breakpoints.down("xs")]: {
-    //   flexDirection: "row",
-    //   justifyContent: "flex-end",
-    //   alignItems: "flex-start",
-    //   width: "100%",
-    //   height: "100vh",
-    // },
+    [theme.breakpoints.down("md")]: {
+      width: "50em",
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      height: "100vh",
+    },
   },
   service: {
     fontWeight: 400,
@@ -48,6 +42,11 @@ const useStyles = makeStyles((theme) => ({
   radiosContainer: {
     flexDirection: "column",
     marginTop: "5em",
+    [theme.breakpoints.down("sm")]: {
+      alignItems: "center",
+      marginBottom: "8em",
+      marginTop: 50,
+    },
   },
   buttonsContainer: {
     marginTop: "3em",
@@ -68,6 +67,18 @@ const useStyles = makeStyles((theme) => ({
       textDecoration: "underline",
     },
   },
+  column1: {
+    flexDirection: "column",
+    [theme.breakpoints.down("sm")]: {
+      alignItems: "center",
+    },
+  },
+  selectContainer: {
+    marginTop: "5em",
+    [theme.breakpoints.down("sm")]: {
+      marginTop: 50,
+    },
+  }
 }));
 
 export default useStyles;
