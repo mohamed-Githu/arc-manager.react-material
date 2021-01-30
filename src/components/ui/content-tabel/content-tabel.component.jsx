@@ -1,22 +1,11 @@
 import React from "react";
 import clsx from "clsx";
-import { lighten, makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TablePagination from "@material-ui/core/TablePagination";
-import TableRow from "@material-ui/core/TableRow";
-import TableSortLabel from "@material-ui/core/TableSortLabel";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
-import Checkbox from "@material-ui/core/Checkbox";
-import IconButton from "@material-ui/core/IconButton";
-import Tooltip from "@material-ui/core/Tooltip";
+
+import { useToolbarStyles, useStyles } from "./content-table.styles";
+
 import DeleteIcon from "@material-ui/icons/Delete";
 import FilterListIcon from "@material-ui/icons/FilterList";
+
 import {
   MenuItem,
   Menu,
@@ -24,6 +13,20 @@ import {
   InputAdornment,
   Chip,
   Grid,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+  TableSortLabel,
+  Toolbar,
+  Typography,
+  Paper,
+  Checkbox,
+  IconButton,
+  Tooltip,
 } from "@material-ui/core";
 
 const getFilterdRows = (searchValue, rows) =>
@@ -123,45 +126,6 @@ const EnhancedTableHead = (props) => {
   );
 };
 
-const useToolbarStyles = makeStyles((theme) => ({
-  root: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(1),
-  },
-  highlight:
-    theme.palette.type === "light"
-      ? {
-          color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-        }
-      : {
-          color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark,
-        },
-  title: {
-    flex: "1 1 100%",
-  },
-  menu: {
-    "&:hover": {
-      backgroundColor: "#fff",
-    },
-    "&.Mui-focusVisible": {
-      backgroundColor: "#fff",
-    },
-  },
-  totalFilter: {
-    fontSize: "2em",
-    color: theme.palette.secondary.main,
-    fontWeight: 400,
-    padding: 0,
-  },
-  dolarSign: {
-    fontSize: "1.5em",
-    color: theme.palette.secondary.main,
-    fontWeight: 300,
-  },
-}));
-
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
   const {
@@ -256,35 +220,6 @@ const EnhancedTableToolbar = (props) => {
     </Toolbar>
   );
 };
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-  },
-  paper: {
-    width: "100%",
-    marginBottom: theme.spacing(2),
-  },
-  table: {
-    minWidth: 750,
-  },
-  visuallyHidden: {
-    border: 0,
-    clip: "rect(0 0 0 0)",
-    height: 1,
-    margin: -1,
-    overflow: "hidden",
-    padding: 0,
-    position: "absolute",
-    top: 20,
-    width: 1,
-  },
-  chip: {
-    marginRight: "2em",
-    backgroundColor: theme.palette.common.blue,
-    color: "#FFF",
-  },
-}));
 
 const EnhancedTable = ({ rows, searchValue, handleDelete }) => {
   const classes = useStyles();
