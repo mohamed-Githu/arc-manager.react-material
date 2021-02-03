@@ -36,16 +36,7 @@ import {
   stableSort,
 } from "./content-table.utils";
 
-const headCells = [
-  { id: "name", label: "Name" },
-  { id: "date", label: "Date" },
-  { id: "service", label: "Service" },
-  { id: "features", label: "Features" },
-  { id: "complexity", label: "Complexity" },
-  { id: "platforms", label: "Platforms" },
-  { id: "users", label: "Users" },
-  { id: "total", label: "Total" },
-];
+import headCells from "./content-table.data"
 
 const EnhancedTableHead = (props) => {
   const {
