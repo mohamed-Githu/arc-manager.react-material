@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useStyles from "./app.styles";
 
 import { 
@@ -11,7 +11,6 @@ import {
   Snackbar,
   Button,
   FormControlLabel,
-  // useTheme,
   useMediaQuery,
 } from '@material-ui/core';
 import AddIcon from "@material-ui/icons/Add";
@@ -23,10 +22,10 @@ import EnhancedTable from "./ui/content-tabel/content-tabel.component";
 import AddModal from "./ui/add-modal/add-modal.component";
 
 import theme from './ui/Theme';
+import Fonts from "./Fonts";
 
 const App = () => {
   const classes = useStyles();
-  // const theme = useTheme();
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [inputValue, setInputValue] = useState("");
@@ -95,6 +94,10 @@ const App = () => {
 
     return filterdRows;
   };
+
+  useEffect(() => {
+    Fonts();
+  }, [])
 
   return (
     <ThemeProvider theme={theme}>
