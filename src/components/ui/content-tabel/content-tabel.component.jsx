@@ -32,11 +32,10 @@ import {
 import {
   getComparator,
   getFilterdRows,
-  descendingComparator,
   stableSort,
 } from "./content-table.utils";
 
-import headCells from "./content-table.data"
+import headCells from "./content-table.data";
 
 const EnhancedTableHead = (props) => {
   const {
